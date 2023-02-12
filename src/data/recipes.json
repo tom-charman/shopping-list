@@ -1,0 +1,15 @@
+[
+    {
+        "name": "Chicken Curry",
+        "ingredients": [
+            {
+                "name": "Chicken Breast",
+                "quantity": "2"
+            },
+            {
+                "name": "Basmati Rice",
+                "quantity": "200 g"
+            }
+        ]
+    }
+]
