@@ -3,11 +3,10 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"os"
-
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"log"
+	"os"
 )
 
 const (
@@ -29,9 +28,20 @@ func goDotEnvVariable(key string) string {
 	return os.Getenv(key)
 }
 
+func getRecipeIngredients(db *sql.DB, recipe_id int) string {
+	sqlStatement := `SELECT name FROM recipes where rec_id=$1`
+	var name string
+	row := db.QueryRow(sqlStatement, recipe_id)
+	err := row.Scan(&name)
+	if err != nil{
+		panic(err)
+	}
+	return name
+}
+
 func main() {
-	postgres_pw := goDotEnvVariable("POSTGRES_PW")
-	fmt.Println(postgres_pw)
+	postgres_pw := goDotEnvVariable("POSTGRESQL_PW")
+
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, postgres_pw, dbname)
@@ -48,4 +58,6 @@ func main() {
 	}
 
 	fmt.Println("Successfully connected!")
+	name := getRecipeIngredients(db, 1)
+	fmt.Println(name)
 }

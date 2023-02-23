@@ -1,3 +1,3 @@
 # shopping-list
 
-Some Python to make a shopping list.
+Some Go to make a shopping list.
